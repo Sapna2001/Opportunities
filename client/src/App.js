@@ -1,10 +1,9 @@
-import logo from './logo.svg';
 import './App.css';
 import About from './About'
 import Main from './Main';
 import Login from './components/Login';
 import React from "react"
-import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+import { useRoutes, Link } from 'raviger'
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={(props) => (
@@ -14,20 +13,23 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
   )} />
 )
 
-function App() {
-  const [data, setData] = React.useState(null);
+const routes = {
+  '/': () => <Main />,
+  '/about': () => <About />,
+  '/login': () => <Login />
+}
 
+function App() {
+  let route = useRoutes(routes)
   return (
-    <>
-      <Router>
-        <Switch>
-          {/* Add routes over here */}
-          <Route path="/" exact component={() => <Main />} />
-          <Route path="/login" exact component={() => <Login />} />
-          <Route path='/about' component={() => <About/>} />
-        </Switch>
-      </Router>
-      </>
+    <div>
+      <div>
+        <Link href="/">Home</Link>
+        <Link href="/about">About</Link>
+        <Link href="/login">Login</Link>
+      </div>
+      {route}
+    </div>
   );
 }
 

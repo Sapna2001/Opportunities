@@ -1,6 +1,17 @@
 import logo from './logo.svg';
 import './App.css';
+import About from './About'
+import Main from './Main';
 import React from "react"
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route {...rest} render={(props) => (
+    !!localStorage.getItem("payload")
+      ? <Component {...props} />
+      : <Redirect to='/login' />
+  )} />
+)
 
 function App() {
   const [data, setData] = React.useState(null);
@@ -12,12 +23,16 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>{!data ? "Loading..." : data}</p>
-      </header>
-    </div>
+    <>
+      <Router>
+        <Switch>
+          {/* Add routes over here */}
+          <Route path="/" exact component={() => <Main />} />
+          {/* <Route path="/login" exact component={() => <LoginPage />} /> */}
+          <Route path='/about' component={() => <About/>} />
+        </Switch>
+      </Router>
+      </>
   );
 }
 

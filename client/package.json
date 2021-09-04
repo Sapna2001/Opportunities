@@ -14,6 +14,9 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
+    "css": "postcss ./src/index.css -o ./src/index.generated.css",
+    "prestart": "npm run css",
+    "prebuild": "npm run css",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -36,5 +39,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "autoprefixer": "^9.8.6",
+    "postcss": "^7.0.36",
+    "postcss-cli": "^7.1.2",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.9"
   }
 }
